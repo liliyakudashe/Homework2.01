@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class Human {
@@ -7,15 +8,16 @@ public class Human {
     private String cityOfResidence;
     private String post;
 
-    Human(String name, int dateOfBirth, String cityOfResidence, String post){
+    Human(String name, int age, String cityOfResidence, String post){
         this.name = name;
         if (this.name == null){
             this.name = "Информация не указана";
         }
-        this.dateOfBirth = dateOfBirth;
+        this.dateOfBirth = LocalDate.now().getYear() - age;
         if (dateOfBirth >= -1){
-            this.dateOfBirth = Math.abs(dateOfBirth);
+            this.dateOfBirth = LocalDate.now().getYear() - Math.abs(age);
         }
+
         this.cityOfResidence = cityOfResidence;
         if (this.cityOfResidence == null){
             this.cityOfResidence = "Информация не указана";
@@ -30,22 +32,40 @@ public class Human {
         return name;
     }
 
-    public int getDateOfBirth() {
-        return dateOfBirth;
+    public void setName(String name) {
+        if (name != null && !name.isEmpty() && !name.isBlank()){
+            this.name = name;
+        }
+
     }
+
+    public int getAge() {
+        return LocalDate.now().getYear() - dateOfBirth;
+    }
+
 
     public String getCityOfResidence() {
         return cityOfResidence;
+    }
+
+    public void setCityOfResidence(String cityOfResidence) {
+        if (cityOfResidence != null && !cityOfResidence.isEmpty() && !cityOfResidence.isBlank())
+        this.cityOfResidence = cityOfResidence;
     }
 
     public String getPost() {
         return post;
     }
 
+    public void setPost(String post) {
+        if (post != null && !post.isEmpty() && !post.isBlank())
+        this.post = post;
+    }
+
     public String toString() {
         return ("Привет! Меня зовут " + name +
                 ". Я из города " + cityOfResidence +
-                ". Я родился в " + dateOfBirth + " году. Я работаю на должности " + post + ". Будем знакомы!");
+                ". Я родился в " + getAge() + " году. Я работаю на должности " + post + ". Будем знакомы!");
     }
 
     @Override
