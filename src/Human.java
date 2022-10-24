@@ -9,22 +9,20 @@ public class Human {
     private String post;
 
     Human(String name, int age, String cityOfResidence, String post){
-        this.name = name;
-        if (this.name == null){
-            this.name = "Информация не указана";
-        }
+        this.name = defaultValid(name, "Информация не указана");
         this.dateOfBirth = LocalDate.now().getYear() - age;
-        if (dateOfBirth >= -1){
+        if (dateOfBirth <= -1){
             this.dateOfBirth = LocalDate.now().getYear() - Math.abs(age);
         }
+        this.cityOfResidence = defaultValid(cityOfResidence, "Информация не указана");
+        this.post = defaultValid(post, "Информация не указана");
+    }
 
-        this.cityOfResidence = cityOfResidence;
-        if (this.cityOfResidence == null){
-            this.cityOfResidence = "Информация не указана";
-        }
-        this.post = post;
-        if (this.post == null){
-            this.post = "Информация не указана";
+    private String defaultValid (String valid, String defaul){
+        if (valid == null || valid.isBlank()){
+            return defaul;
+        } else {
+            return valid;
         }
     }
 
@@ -33,10 +31,9 @@ public class Human {
     }
 
     public void setName(String name) {
-        if (name != null && !name.isEmpty() && !name.isBlank()){
+        if (name == null || name.isEmpty() || name.isBlank()){
             this.name = name;
         }
-
     }
 
     public int getAge() {
@@ -49,7 +46,7 @@ public class Human {
     }
 
     public void setCityOfResidence(String cityOfResidence) {
-        if (cityOfResidence != null && !cityOfResidence.isEmpty() && !cityOfResidence.isBlank())
+        if (cityOfResidence == null || cityOfResidence.isEmpty() || cityOfResidence.isBlank())
         this.cityOfResidence = cityOfResidence;
     }
 
@@ -58,7 +55,7 @@ public class Human {
     }
 
     public void setPost(String post) {
-        if (post != null && !post.isEmpty() && !post.isBlank())
+        if (post == null || post.isEmpty() || post.isBlank())
         this.post = post;
     }
 
